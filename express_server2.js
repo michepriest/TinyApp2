@@ -11,6 +11,18 @@ const urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+function generateRandomString(digits) {
+  //Solution from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+   var text = '';
+   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+   for (var i = 0; i < digits; i++){
+       text += possible.charAt(Math.floor(Math.random() * possible.length));
+   }
+
+   return text;
+}
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -30,6 +42,11 @@ app.get("/hello", (req, res) => {
 
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
+});
+
+app.post("/urls", (req, res) => {
+  console.log(req.body);
+  res.send("Ok");
 });
 
 app.listen(PORT, () => {
